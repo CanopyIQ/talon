@@ -10,6 +10,7 @@ applying features to them.
 from talon.signature.constants import (SIGNATURE_MAX_LINES,
                                        TOO_LONG_SIGNATURE_LINE)
 from talon.signature.learning.helpers import *
+from functools import reduce
 
 
 def features(sender=''):

@@ -13,15 +13,15 @@ def test_get_delimiter():
 
 
 def test_unicode():
-    eq_ (u'hi', u.to_unicode('hi'))
-    eq_ (type(u.to_unicode('hi')), unicode )
-    eq_ (type(u.to_unicode(u'hi')), unicode )
-    eq_ (type(u.to_unicode('привет')), unicode )
-    eq_ (type(u.to_unicode(u'привет')), unicode )
-    eq_ (u"привет", u.to_unicode('привет'))
-    eq_ (u"привет", u.to_unicode(u'привет'))
+    eq_ ('hi', u.to_unicode('hi'))
+    eq_ (type(u.to_unicode('hi')), str )
+    eq_ (type(u.to_unicode('hi')), str )
+    eq_ (type(u.to_unicode('привет')), str )
+    eq_ (type(u.to_unicode('привет')), str )
+    eq_ ("привет", u.to_unicode('привет'))
+    eq_ ("привет", u.to_unicode('привет'))
     # some latin1 stuff
-    eq_ (u"Versión", u.to_unicode('Versi\xf3n', precise=True))
+    eq_ ("Versión", u.to_unicode('Versi\xf3n', precise=True))
 
 
 def test_detect_encoding():

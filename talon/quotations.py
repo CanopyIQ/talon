@@ -21,9 +21,9 @@ log = logging.getLogger(__name__)
 RE_FWD = re.compile("^[-]+[ ]*Forwarded message[ ]*[-]+$", re.I | re.M)
 
 RE_ON_DATE_SMB_WROTE = re.compile(
-    u'(-*[>]?[ ]?({0})[ ].*({1})(.*\n){{0,2}}.*({2}):?-*)'.format(
+    '(-*[>]?[ ]?({0})[ ].*({1})(.*\n){{0,2}}.*({2}):?-*)'.format(
         # Beginning of the line
-        u'|'.join((
+        '|'.join((
             # English
             'On',
             # French
@@ -35,25 +35,25 @@ RE_ON_DATE_SMB_WROTE = re.compile(
             # German
             'Am',
             # Norwegian
-            u'På',
+            'På',
             # Swedish, Danish
             'Den',
         )),
         # Date and sender separator
-        u'|'.join((
+        '|'.join((
             # most languages separate date and sender address by comma
             ',',
             # polish date and sender address separator
-            u'użytkownik'
+            'użytkownik'
         )),
         # Ending of the line
-        u'|'.join((
+        '|'.join((
             # English
             'wrote', 'sent',
             # French
-            u'a écrit',
+            'a écrit',
             # Polish
-            u'napisał',
+            'napisał',
             # Dutch
             'schreef','verzond','geschreven',
             # German
@@ -64,15 +64,15 @@ RE_ON_DATE_SMB_WROTE = re.compile(
     ))
 # Special case for languages where text is translated like this: 'on {date} wrote {somebody}:'
 RE_ON_DATE_WROTE_SMB = re.compile(
-    u'(-*[>]?[ ]?({0})[ ].*(.*\n){{0,2}}.*({1})[ ]*.*:)'.format(
+    '(-*[>]?[ ]?({0})[ ].*(.*\n){{0,2}}.*({1})[ ]*.*:)'.format(
         # Beginning of the line
-        u'|'.join((
+        '|'.join((
         	'Op',
         	#German
         	'Am'
         )),
         # Ending of the line
-        u'|'.join((
+        '|'.join((
             # Dutch
             'schreef','verzond','geschreven',
             # German
@@ -117,22 +117,22 @@ RE_EMPTY_QUOTATION = re.compile(
 
 # ------Original Message------ or ---- Reply Message ----
 # With variations in other languages.
-RE_ORIGINAL_MESSAGE = re.compile(u'[\s]*[-]+[ ]*({})[ ]*[-]+'.format(
-    u'|'.join((
+RE_ORIGINAL_MESSAGE = re.compile('[\s]*[-]+[ ]*({})[ ]*[-]+'.format(
+    '|'.join((
         # English
         'Original Message', 'Reply Message',
         # German
-        u'Ursprüngliche Nachricht', 'Antwort Nachricht',
+        'Ursprüngliche Nachricht', 'Antwort Nachricht',
         # Danish
         'Oprindelig meddelelse',
     ))), re.I)
 
-RE_FROM_COLON_OR_DATE_COLON = re.compile(u'(_+\r?\n)?[\s]*(:?[*]?{})[\s]?:[*]? .*'.format(
-    u'|'.join((
+RE_FROM_COLON_OR_DATE_COLON = re.compile('(_+\r?\n)?[\s]*(:?[*]?{})[\s]?:[*]? .*'.format(
+    '|'.join((
         # "From" in different languages.
-        'From', 'Van', 'De', 'Von', 'Fra', u'Från',
+        'From', 'Van', 'De', 'Von', 'Fra', 'Från',
         # "Date" in different languages.
-        'Date', 'Datum', u'Envoyé', 'Skickat', 'Sendt',
+        'Date', 'Datum', 'Envoyé', 'Skickat', 'Sendt',
     ))), re.I)
 
 SPLITTER_PATTERNS = [
@@ -200,7 +200,7 @@ def mark_message_lines(lines):
             if splitter:
                 # append as many splitter markers as lines in splitter
                 splitter_lines = splitter.group().splitlines()
-                for j in xrange(len(splitter_lines)):
+                for j in range(len(splitter_lines)):
                     markers[i + j] = 's'
 
                 # skip splitter lines
@@ -380,7 +380,7 @@ def extract_from_html(msg_body):
     lines_were_deleted, first_deleted, last_deleted = return_flags
     if lines_were_deleted:
         #collect checkpoints from deleted lines
-        for i in xrange(first_deleted, last_deleted):
+        for i in range(first_deleted, last_deleted):
             for checkpoint in line_checkpoints[i]:
                 quotation_checkpoints[checkpoint] = True
     else:

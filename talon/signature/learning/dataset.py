@@ -59,7 +59,7 @@ def parse_msg_sender(filename, sender_known=True):
     if os.path.isfile(filename) and not is_sender_filename(filename):
         with open(filename) as f:
             msg = f.read()
-            sender = u''
+            sender = ''
             if sender_known:
                 sender_filename = build_sender_filename(filename)
                 if os.path.exists(sender_filename):
@@ -122,9 +122,9 @@ def build_detection_dataset(folder, dataset_filename,
     """
     if os.path.exists(dataset_filename):
         os.remove(dataset_filename)
-    build_detection_class(os.path.join(folder, u'P'),
+    build_detection_class(os.path.join(folder, 'P'),
                           dataset_filename, 1)
-    build_detection_class(os.path.join(folder, u'N'),
+    build_detection_class(os.path.join(folder, 'N'),
                           dataset_filename, -1)
 
 
@@ -144,7 +144,7 @@ def build_extraction_dataset(folder, dataset_filename,
             if not sender or not msg:
                 continue
             lines = msg.splitlines()
-            for i in xrange(1, min(SIGNATURE_MAX_LINES,
+            for i in range(1, min(SIGNATURE_MAX_LINES,
                                    len(lines)) + 1):
                 line = lines[-i]
                 label = -1

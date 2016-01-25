@@ -149,12 +149,12 @@ def test_extract_names():
         ['David', 'DECOSTER', 'Domicile']
         }
 
-    for sender, expected_names in senders_names.items():
+    for sender, expected_names in list(senders_names.items()):
         extracted_names = h.extract_names(sender)
         # check that extracted names could be compiled
         try:
             re.compile("|".join(extracted_names))
-        except Exception, e:
+        except Exception as e:
             ok_(False, ("Failed to compile extracted names {}"
                         "\n\nReason: {}").format(extracted_names, e))
         if expected_names:
@@ -204,7 +204,7 @@ def test_has_signature():
                         'sender@example.com'))
     assert_false(h.has_signature('http://www.example.com/555-555-5555',
                                  'sender@example.com'))
-    long_line = ''.join(['q' for e in xrange(28)])
+    long_line = ''.join(['q' for e in range(28)])
     assert_false(h.has_signature(long_line + ' sender', 'sender@example.com'))
     # wont crash on an empty string
     assert_false(h.has_signature('', ''))

@@ -100,7 +100,7 @@ def test_handles_unicode():
 @patch.object(signature.extraction, 'has_signature')
 def test_signature_extract_crash(has_signature):
     has_signature.side_effect = Exception('Bam!')
-    msg_body = u'Blah\r\n--\r\n\r\nСергей'
+    msg_body = 'Blah\r\n--\r\n\r\nСергей'
     eq_((msg_body, None), signature.extract(msg_body, 'Сергей'))
 
 
@@ -127,20 +127,20 @@ def test_mark_lines():
 
 def test_process_marked_lines():
     # no signature found
-    eq_((range(5), None), e._process_marked_lines(range(5), 'telt'))
+    eq_((list(range(5)), None), e._process_marked_lines(list(range(5)), 'telt'))
 
     # signature in the middle of the text
-    eq_((range(9), None), e._process_marked_lines(range(9), 'tesestelt'))
+    eq_((list(range(9)), None), e._process_marked_lines(list(range(9)), 'tesestelt'))
 
     # long line splits signature
-    eq_((range(7), [7, 8]),
-        e._process_marked_lines(range(9), 'tsslsless'))
+    eq_((list(range(7)), [7, 8]),
+        e._process_marked_lines(list(range(9)), 'tsslsless'))
 
-    eq_((range(20), [20]),
-        e._process_marked_lines(range(21), 'ttttttstttesllelelets'))
+    eq_((list(range(20)), [20]),
+        e._process_marked_lines(list(range(21)), 'ttttttstttesllelelets'))
 
     # some signature lines could be identified as text
-    eq_(([0], range(1, 9)), e._process_marked_lines(range(9), 'tsetetest'))
+    eq_(([0], list(range(1, 9))), e._process_marked_lines(list(range(9)), 'tsetetest'))
 
-    eq_(([], range(5)),
-        e._process_marked_lines(range(5), "ststt"))
+    eq_(([], list(range(5))),
+        e._process_marked_lines(list(range(5)), "ststt"))
