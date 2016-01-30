@@ -354,8 +354,8 @@ def extract_from_html(msg_body):
 
     number_of_checkpoints = html_quotations.add_checkpoint(html_tree, 0)
     quotation_checkpoints = [False] * number_of_checkpoints
-    msg_with_checkpoints = html.tostring(html_tree)
-    plain_text = html_to_text(msg_with_checkpoints)
+    msg_with_checkpoints = _html_tostring(html_tree)
+    plain_text = html_to_text(msg_with_checkpoints).decode('utf-8')
     plain_text = preprocess(plain_text, '\n', content_type='text/html')
     lines = plain_text.splitlines()
 
@@ -385,7 +385,7 @@ def extract_from_html(msg_body):
                 quotation_checkpoints[checkpoint] = True
     else:
         if cut_quotations:
-            return html.tostring(html_tree_copy)
+            return _html_tostring(html_tree_copy)
         else:
             return msg_body
 
@@ -394,7 +394,7 @@ def extract_from_html(msg_body):
         html_tree_copy, 0, quotation_checkpoints
     )
 
-    return html.tostring(html_tree_copy)
+    return _html_tostring(html_tree_copy)
 
 
 def is_splitter(line):
@@ -423,3 +423,6 @@ def register_xpath_extensions():
     ns.prefix = 'mg'
     ns['text_content'] = text_content
     ns['tail'] = tail
+
+def _html_tostring(html_tree):
+  return html.tostring(html_tree).decode('utf-8')

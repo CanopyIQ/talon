@@ -152,7 +152,7 @@ def test_unicode_in_reply():
 
 <blockquote>
   Quote
-</blockquote>""".encode("utf-8")
+</blockquote>"""
 
     eq_("<html><body><p>Reply&#160;&#160;Text<br></p><div><br></div>"
         "</body></html>",
@@ -273,7 +273,7 @@ def extract_reply_and_check(filename):
 
     msg_body = f.read()
     reply = quotations.extract_from_html(msg_body)
-    plain_reply = u.html_to_text(reply)
+    plain_reply = u.html_to_text(reply).decode('utf-8')
 
     eq_(RE_WHITESPACE.sub('', "Hi. I am fine.\n\nThanks,\nAlex"),
         RE_WHITESPACE.sub('', plain_reply))

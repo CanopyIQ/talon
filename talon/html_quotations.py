@@ -6,9 +6,9 @@ messages (without quoted messages) from html
 import regex as re
 
 
-CHECKPOINT_PREFIX = b'#!%!'
-CHECKPOINT_SUFFIX = b'!%!#'
-CHECKPOINT_PATTERN = re.compile(CHECKPOINT_PREFIX + b'\d+' + CHECKPOINT_SUFFIX)
+CHECKPOINT_PREFIX = '#!%!'
+CHECKPOINT_SUFFIX = '!%!#'
+CHECKPOINT_PATTERN = re.compile(CHECKPOINT_PREFIX + '\d+' + CHECKPOINT_SUFFIX)
 
 # HTML quote indicators (tag ids)
 QUOTE_IDS = ['OLK_SRC_BODY_SECTION']
