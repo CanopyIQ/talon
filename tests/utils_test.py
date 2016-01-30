@@ -25,18 +25,18 @@ def test_unicode():
 
 
 def test_detect_encoding():
-    eq_ ('ascii', u.detect_encoding('qwe').lower())
-    eq_ ('iso-8859-2', u.detect_encoding('Versi\xf3n').lower())
+    eq_ ('ascii', u.detect_encoding(b'qwe').lower())
+    eq_ ('iso-8859-2', u.detect_encoding(b'Versi\xf3n').lower())
     eq_ ('utf-8', u.detect_encoding('привет').lower())
     # fallback to utf-8
     with patch.object(u.chardet, 'detect') as detect:
         detect.side_effect = Exception
-        eq_ ('utf-8', u.detect_encoding('qwe').lower())
+        eq_ ('utf-8', u.detect_encoding(b'qwe').lower())
 
 
 def test_quick_detect_encoding():
-    eq_ ('ascii', u.quick_detect_encoding('qwe').lower())
-    eq_ ('windows-1252', u.quick_detect_encoding('Versi\xf3n').lower())
+    eq_ ('ascii', u.quick_detect_encoding(b'qwe').lower())
+    eq_ ('windows-1252', u.quick_detect_encoding(b'Versi\xf3n').lower())
     eq_ ('utf-8', u.quick_detect_encoding('привет').lower())
 
 
@@ -73,11 +73,11 @@ Haha
 </p>
 </body>"""
     text = u.html_to_text(html)
-    eq_("Hello world! \n\n  * One! \n  * Two \nHaha", text)
-    eq_("привет!", u.html_to_text("<b>привет!</b>"))
+    eq_(b"Hello world! \n\n  * One! \n  * Two \nHaha", text)
+    eq_("привет!".encode('utf-8'), u.html_to_text("<b>привет!</b>"))
 
     html = '<body><br/><br/>Hi</body>'
-    eq_ ('Hi', u.html_to_text(html))
+    eq_ (b'Hi', u.html_to_text(html))
 
     html = """Hi
 <style type="text/css">
@@ -97,11 +97,11 @@ font: 13px 'Lucida Grande', Arial, sans-serif;
 
 }
 </style>"""
-    eq_ ('Hi', u.html_to_text(html))
+    eq_ (b'Hi', u.html_to_text(html))
 
     html = """<div>
 <!-- COMMENT 1 -->
 <span>TEXT 1</span>
 <p>TEXT 2 <!-- COMMENT 2 --></p>
 </div>"""
-    eq_('TEXT 1 \nTEXT 2', u.html_to_text(html))
+    eq_(b'TEXT 1 \nTEXT 2', u.html_to_text(html))

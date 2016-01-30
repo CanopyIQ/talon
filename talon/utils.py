@@ -46,7 +46,7 @@ def to_unicode(str_or_unicode, precise=False):
     If `precise` flag is True, tries to guess the correct encoding first.
     """
     encoding = quick_detect_encoding(str_or_unicode) if precise else 'utf-8'
-    if isinstance(str_or_unicode, str):
+    if isinstance(str_or_unicode, bytes):
         return str(str_or_unicode, encoding, 'replace')
     return str_or_unicode
 
@@ -120,7 +120,7 @@ def html_to_text(string):
         2. returns utf-8 encoded str (not unicode)
     """
     s = _prepend_utf8_declaration(string)
-    s = s.replace(b"\n", b"")
+    s = s.replace("\n", "")
 
     tree = html.fromstring(s)
 
@@ -155,7 +155,7 @@ def html_to_text(string):
 def _contains_charset_spec(s):
     """Return True if the first 4KB contain charset spec
     """
-    return s.lower().find(b'html; charset=', 0, 4096) != -1
+    return s.lower().find('html; charset=', 0, 4096) != -1
 
 
 def _prepend_utf8_declaration(s):
@@ -176,8 +176,8 @@ def _encode_utf8(s):
     return s.encode('utf-8') if isinstance(s, str) else s
 
 
-_UTF8_DECLARATION = (b'<meta http-equiv="Content-Type" content="text/html;'
-                     b'charset=utf-8">')
+_UTF8_DECLARATION = ('<meta http-equiv="Content-Type" content="text/html;'
+                     'charset=utf-8">')
 
 
 _BLOCKTAGS  = ['div', 'p', 'ul', 'li', 'h1', 'h2', 'h3']
